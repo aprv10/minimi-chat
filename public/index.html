@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <title>Minimi Chat</title>
+  <link rel="preload" href="/fonts/dm-sans.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="/style.css">
+  <script type="module" src="/app.js"></script>
+</head>
+<body>
+  <aside id="sidebar" class="sidebar flex flex-col" aria-label="Chat history">
+    <a class="brand flex items-center" href="/"><span class="cat-mark" aria-hidden="true"><span></span></span>Minimi Chat</a>
+    <button type="button" id="new-chat" class="new-chat"><span aria-hidden="true">+</span> New chat</button>
+    <div class="history-label">Recent chats</div>
+    <nav id="history" class="history flex flex-col" aria-label="Recent chats"></nav>
+  </aside>
+  <button id="history-backdrop" type="button" class="history-backdrop" aria-label="Close chat history" hidden></button>
+  <main id="workspace" class="grid min-w-0">
+    <header class="topbar flex items-center justify-between">
+      <a class="brand mobile-brand" href="/">Minimi Chat</a>
+      <div id="chat-title" class="chat-title truncate">New chat</div>
+      <div class="topbar-actions flex items-center">
+        <button id="show-history" type="button" class="history-toggle" aria-controls="sidebar" aria-expanded="false">Chats</button>
+        <details id="appearance" class="appearance">
+          <summary class="appearance-button" aria-label="Appearance" title="Appearance"><span class="theme-icon" aria-hidden="true"></span></summary>
+          <div class="theme-menu" role="group" aria-label="Color theme">
+            <button type="button" data-theme-choice="system" aria-pressed="true">System</button>
+            <button type="button" data-theme-choice="light" aria-pressed="false">Light</button>
+            <button type="button" data-theme-choice="dark" aria-pressed="false">Dark</button>
+          </div>
+        </details>
+      </div>
+    </header>
+    <div id="scroll-area" role="region" aria-label="Chat messages" tabindex="0">
+      <section id="welcome" class="welcome">
+        <div>
+          <h1>What are we looking into?</h1>
+          <div id="welcome-input">
+            <div id="composer-area" class="composer-area">
+              <div id="configuration" class="configuration" hidden>Add <code>GROQ_API_KEY</code> and <code>TAVILY_API_KEY</code> to <code>.env</code>, then restart the server.</div>
+              <div id="status" class="status" role="status" aria-live="polite" hidden>
+                <span id="thinking" class="thinking flex items-center" aria-hidden="true" hidden><i></i><i></i><i></i></span>
+                <span id="status-copy"></span>
+                <button id="retry" type="button" hidden>Retry</button>
+              </div>
+              <form id="composer" class="composer flex items-end gap-3">
+                <label class="sr-only" for="question">Message</label>
+                <textarea id="question" rows="1" maxlength="6000" placeholder="Ask anything" disabled></textarea>
+                <button type="submit" id="send" class="send" aria-label="Send message" disabled>↑</button>
+                <button type="button" id="stop" class="stop" hidden>Stop</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section id="messages" class="messages" aria-label="Conversation" hidden></section>
+    </div>
+    <div id="conversation-input" class="conversation-input"></div>
+  </main>
+  <dialog id="source-dialog" class="source-dialog" aria-labelledby="source-title">
+    <div class="dialog-header flex items-center justify-between gap-2.5">
+      <h2 id="source-title">Source</h2>
+      <form method="dialog"><button class="close-button" aria-label="Close source">×</button></form>
+    </div>
+    <div id="source-content"></div>
+  </dialog>
+</body>
+</html>
